@@ -32,6 +32,10 @@ export default function GuardExitPage() {
       if (res.ok) {
         setStatus("success");
         setMessage(`Document Updated: ${data.visitorName || "Visitor"} Exited`);
+          setTimeout(() => {
+        setStatus("idle");   
+        setMessage("");    
+      }, 4000);
       } else {
         setStatus("error");
         setMessage(data.error || "Write Error: Invalid Token");
