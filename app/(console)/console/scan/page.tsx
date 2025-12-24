@@ -7,6 +7,10 @@ import Link from "next/link";
 
 const ScannerComponent = dynamic(() => import("@/components/GuardScanner"), { ssr: false });
 
+const baseUrl = process.env.NODE_ENV === 'development'
+    ? process.env.NEXT_PUBLIC_DEVELOPMENT_URL
+    : process.env.NEXT_PUBLIC_PRODUCTION_URL;
+
 export default function GuardExitPage() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("Scan visitor pass to authorize exit");
@@ -17,10 +21,11 @@ export default function GuardExitPage() {
     setMessage("Querying Database...");
 
     try {
-      const res = await fetch("/api/visitor/exit", {
+      const res = await fetch(`${baseUrl}/api/visitor/checkout`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ passCode: decodedText }),
+        credentials:'include',
       });
       const data = await res.json();
 
