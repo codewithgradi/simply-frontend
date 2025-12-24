@@ -25,7 +25,7 @@ const BusinessQRModal: React.FC<BusinessQRModalProps> = ({
   const [showQR, setShowQR] = useState<boolean>(false);
   
   const qrRef = useRef<HTMLDivElement>(null);
-  const scanUrl = `${baseUrl}/visit?bid=${businessId}`
+  const scanUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL}/visit?bid=${businessId}`
   const handlePrint = useReactToPrint({
     contentRef: qrRef,
     documentTitle: `${businessName}_QRCode`,
