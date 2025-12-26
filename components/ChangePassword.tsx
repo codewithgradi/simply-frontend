@@ -84,7 +84,11 @@ const ChangePasswordModal = ({ isOpen, onClose }: ChangePasswordModalProps) => {
     setLoading(true);
 
     try {
-      const dataToSent = { companyId: company.id, ...form }
+      
+    const dataToSent = { 
+      oldPassword: form.oldPassword, 
+      newPassword: form.newPassword 
+    };
       
       const res = await fetch(`${baseUrl}/api/company/profile/password`, {
         method: 'PUT',
